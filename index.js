@@ -26,15 +26,11 @@ document.querySelector("#show-login").addEventListener("click", () => {
     showLogin();
 });
 
-const showLogin = () => {
+function showLogin() {
     document.querySelector("#registration-page").classList.add("hide");
     document.querySelector("#login-page").classList.remove("hide");
     document.querySelector("#homepage").classList.add("hide");
-};
-
-document.querySelector("#signout").addEventListener("click", () => {
-    signOut();
-});
+}
 
 const register = () => {
     const email = document.querySelector("#registration-email").value;
