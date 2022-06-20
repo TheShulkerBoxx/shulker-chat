@@ -402,8 +402,8 @@ window.onload = function() {
         }else{
           var minutes = d.getMinutes()
         }
-        var month = d.getMonth()
-        var date = d.getDay()
+        var month = d.getMonth() + 1
+        var date = d.getDate()
         var year = d.getYear() - 100
         var time = hours + ":" + minutes + ' ' + ampm + ' at ' + month + '/' + date + '/' + year
         // This index is mortant. It will help organize the chat in order
