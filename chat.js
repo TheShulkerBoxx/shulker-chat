@@ -402,7 +402,10 @@ window.onload = function() {
         }else{
           var minutes = d.getMinutes()
         }
-        var time = hours + ":" + minutes + ' ' + ampm
+        var month = d.getMonth()
+        var date = d.getDay()
+        var year = d.getYear() - 100
+        var time = hours + ":" + minutes + ' ' + ampm + ' at ' + month + '/' + date + '/' + year
         // This index is mortant. It will help organize the chat in order
         var index = parseFloat(message_object.numChildren()) + 1
         db.ref('chats/' + `message_${index}`).set({
