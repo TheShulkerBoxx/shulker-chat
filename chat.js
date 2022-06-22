@@ -639,58 +639,58 @@ window.onload = function() {
 
   }
 
-const channel = new BroadcastChannel('tab');
+  const channel = new BroadcastChannel('tab');
 
-channel.postMessage('another-tab');
-    // note that listener is added after posting the message
+  channel.postMessage('another-tab');
+      // note that listener is added after posting the message
 
-channel.addEventListener('message', (msg) => {
-  if (msg.data === 'another-tab') {
-        // message received from 2nd tab
-    document.location.replace('https://www.google.com')
-    channel.postMessage('reload-tab');
-  } else if (msg.data === 'reload-tab') {
-    document.location.reload(true)
-  }
-});
-
-
-var largestIndex = 0
-var absoluteLargestIndex = 0
-var notifyAllowed = false
-if (localStorage.getItem('first-time') == null){
-  localStorage.setItem('first-time', 'true')
-}
-// We enclose this in window.onload.
-// So we don't have ridiculous errors.
-
-
-// Let's check if the browser supports notifications
-if (!("Notification" in window)) {
-  alert("This browser does not support desktop notifications.");
-}
-
-// Let's check whether notification permissions have already been granted
-else if (Notification.permission === "granted") {
-  // If it's okay let's create a notification
-  notifyAllowed = true
-}
-
-// Otherwise, we need to ask the user for permission
-else if (Notification.permission !== "denied") {
-  Notification.requestPermission().then(function (permission) {
-    // If the user accepts, let's create a notification
-    if (permission === "granted") {
-      notifyAllowed = true
+  channel.addEventListener('message', (msg) => {
+    if (msg.data === 'another-tab') {
+          // message received from 2nd tab
+      document.location.replace('https://www.google.com')
+      channel.postMessage('reload-tab');
+    } else if (msg.data === 'reload-tab') {
+      document.location.reload(true)
     }
   });
-}
-  // So we've "built" our app. Let's make it work!!
-var app = new MEME_CHAT()
-  // If we have a name stored in localStorage.
-  // Then use that name. Otherwise , if not.
-  // Go to home.
 
-app.chat()
+
+  var largestIndex = 0
+  var absoluteLargestIndex = 0
+  var notifyAllowed = false
+  if (localStorage.getItem('first-time') == null){
+    localStorage.setItem('first-time', 'true')
+  }
+  // We enclose this in window.onload.
+  // So we don't have ridiculous errors.
+
+
+  // Let's check if the browser supports notifications
+  if (!("Notification" in window)) {
+    alert("This browser does not support desktop notifications.");
+  }
+
+  // Let's check whether notification permissions have already been granted
+  else if (Notification.permission === "granted") {
+    // If it's okay let's create a notification
+    notifyAllowed = true
+  }
+
+  // Otherwise, we need to ask the user for permission
+  else if (Notification.permission !== "denied") {
+    Notification.requestPermission().then(function (permission) {
+      // If the user accepts, let's create a notification
+      if (permission === "granted") {
+        notifyAllowed = true
+      }
+    });
+  }
+    // So we've "built" our app. Let's make it work!!
+  var app = new MEME_CHAT()
+    // If we have a name stored in localStorage.
+    // Then use that name. Otherwise , if not.
+    // Go to home.
+
+  app.chat()
 
 }
