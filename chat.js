@@ -361,25 +361,11 @@ window.onload = function() {
         }
       }
 
-      var chat_logout_container = document.createElement('div')
-      chat_logout_container.setAttribute('id', 'chat_logout_container')
-
-      var chat_logout = document.createElement('button')
-      chat_logout.setAttribute('id', 'chat_logout')
-      chat_logout.textContent = `Click here to Log Out`
-      // "Logout" is really just deleting the name from the localStorage
-      chat_logout.onclick = function(){
-        var req = indexedDB.deleteDatabase("firebaseLocalStorageDb");
-        localStorage.clear()
-        document.location.reload(true)
-      }
-
-      chat_logout_container.append(chat_logout)
       chat_input_container.append(chat_input, chat_input_send)
       chat_inner_container.append(chat_content_container, chat_input_container)
       chat_container.append(chat_inner_container)
       chat_container.append(user_main_container)
-      document.body.append(chat_container, chat_logout_container)
+      document.body.append(chat_container)
       // After creating the chat. We immediatly create a loading circle in the 'chat_content_container'
       parent.create_load('chat_content_container')
       // then we "refresh" and get the chat data from Firebase
