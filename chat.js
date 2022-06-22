@@ -379,6 +379,36 @@ window.onload = function() {
     // Sends message/saves the message to firebase database
     send_message(message){
       var parent = this
+      if (message == "/remove-chat-instance"){
+          db.ref('chats/').remove()
+          const d = new Date();
+          if (d.getHours() > 12){
+            var hours = d.getHours() - 12
+            var ampm = 'PM'
+          }else{
+            var hours = d.getHours()
+            var ampm = 'AM'
+          }
+          if (d.getMinutes() < 10){
+            var minutes = "0" + d.getMinutes()
+          }else{
+            var minutes = d.getMinutes()
+          }
+          var month = d.getMonth() + 1
+          var date = d.getDate()
+          var year = d.getYear() - 100
+          var time = hours + ":" + minutes + ' ' + ampm + ' at ' + month + '/' + date + '/' + year
+            // This index is mortant. It will help organize the chat in order
+          db.ref('chats/' + 'message_1').set({
+            name: 'TheShulkerBox',
+            message: 'Server Reset',
+            index: 1,
+            time: time,
+          })
+          parent.refresh_chat()
+          return (null)
+  
+      }
       // if the local storage name is null and there is no message
       // then return/don't send the message. The user is somehow hacking
       // to send messages. Or they just deleted the
