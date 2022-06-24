@@ -9,3 +9,5 @@ The chat messages are stored using Google's Firebase Storage and Firestone Datab
 The database collects the name of the user sendine each message, the time it was sent at, the index of the message relative to others, and the message content.
 
 When the user logs in, their name, if they are online, and if they are typing are also stored on the database.
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/aa11da4d-d428-4f1e-b033-a4aec5ed5785/deploy-status)](https://app.netlify.com/sites/eduworkshop/deploys)
