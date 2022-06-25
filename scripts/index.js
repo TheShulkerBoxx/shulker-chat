@@ -1,11 +1,11 @@
 var firebaseConfig = {
-    apiKey: "AIzaSyAlw2wl2onHVuVg2WdxnT-8--LOSWKJ6H4",
-    authDomain: "shulker-chat.firebaseapp.com",
-    databaseURL: "https://shulker-chat-default-rtdb.firebaseio.com",
-    projectId: "shulker-chat",
-    storageBucket: "shulker-chat.appspot.com",
-    messagingSenderId: "77508273534",
-    appId: "1:77508273534:web:c6bf61ccd5a829dda93f2f"
+    apiKey: "AIzaSyCUtfC5VDRoLMtLxE-s_yrv4coGUi0lSUU",
+    authDomain: "shulker-chat-92c89.firebaseapp.com",
+    databaseURL: "https://shulker-chat-92c89-default-rtdb.firebaseio.com",
+    projectId: "shulker-chat-92c89",
+    storageBucket: "shulker-chat-92c89.appspot.com",
+    messagingSenderId: "736268758426",
+    appId: "1:736268758426:web:9019c18cf05b8790401e23"
 };
   // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
