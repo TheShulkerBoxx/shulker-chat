@@ -23,6 +23,12 @@ window.onload = function() {
   const db = firebase.database();
   const auth = firebase.auth();
 
+  auth.onAuthStateChanged((firebaseUser) => {
+    if (!firebaseUser) {
+        window.location.replace("index.html")
+    }
+});
+
   const usersRef = firestoreDb.collection('users'); // Get a reference to the Users collection;
   const onlineRef = db.ref('.info/connected'); // Get a reference to the list of connections
   // We're going to use oBjEcT OrIeNtEd PrOgRaMmInG. Lol
