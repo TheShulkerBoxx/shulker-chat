@@ -20,6 +20,7 @@ window.onload = function() {
   // This is very IMPORTANT!! We're going to use "db" a lot.
   const firestoreDb = firebase.firestore();
   const db = firebase.database();
+  const auth = firebase.auth();
 
   const usersRef = firestoreDb.collection('users'); // Get a reference to the Users collection;
   const onlineRef = db.ref('.info/connected'); // Get a reference to the list of connections

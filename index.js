@@ -84,8 +84,6 @@ const login = () => {
         authenticate(output_email, password);
     }
     var username = email
-    console.log(username)
-    console.log(email)
     localStorage.setItem('name', username)
 };
 
