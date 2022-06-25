@@ -70,7 +70,7 @@ window.onload = function() {
       settings.setAttribute('id', 'settings')
       document.body.append(settings)
       var gear = document.createElement('img')
-      gear.setAttribute('src', 'gear.ico')
+      gear.setAttribute('src', 'images/gear.ico')
       gear.setAttribute('id', 'gear')
       settings.append(gear)
 
@@ -495,7 +495,7 @@ window.onload = function() {
                 if (notifyAllowed){
                   var notification = new Notification("Educational Workshop", {
                     body: "There is a new message!",
-                    icon: 'book.png'
+                    icon: 'images/book.png'
                   });
                 }
               }
