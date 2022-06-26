@@ -117,7 +117,7 @@ window.onload = function() {
           notifyAllowed = false
           document.getElementById('notifications-toggle').classList.remove('allowed')
           document.getElementById('notifications-toggle').classList.add('disabled')
-          document.getElementById('notifications-toggle').innerHTML = "Notifications Not Allowed"
+          document.getElementById('notifications-toggle').innerHTML = "Do Not Disturb"
         } else {
           notifyAllowed = true
           document.getElementById('notifications-toggle').classList.remove('disabled')
@@ -138,7 +138,7 @@ window.onload = function() {
         document.getElementById('notifications-toggle').classList.add('allowed')
       } else {
         document.getElementById('notifications-toggle').classList.add('disabled')
-        document.getElementById('notifications-toggle').innerHTML = "Notifications Not Allowed"
+        document.getElementById('notifications-toggle').innerHTML = "Do Not Disturb"
       }
 
       const openModalButtons = document.querySelectorAll('[data-modal-target]')
@@ -154,7 +154,7 @@ window.onload = function() {
             document.getElementById('notifications-toggle').classList.add('allowed')
           } else {
             document.getElementById('notifications-toggle').classList.add('disabled')
-            document.getElementById('notifications-toggle').innerHTML = "Notifications Not Allowed"
+            document.getElementById('notifications-toggle').innerHTML = "Do Not Disturb"
           }
           const modal = document.querySelector(button.dataset.modalTarget)
           openModal(modal)

@@ -396,17 +396,15 @@ body{
 
 #settings-text {
   font-size: 14px;
-  margin-top: 5px;
 }
 
 #notifications-toggle {
-  margin-right: 10px;
+  float: center;
 }
 
 #notifications-toggle.allowed {
   width: 37%;
   height: 35px;
-  margin-top: 10px;
   color: #fff;
   font-family: Varela Round;
   font-size: 14px;
@@ -428,10 +426,9 @@ body{
 #notifications-toggle.disabled {
   width: 37%;
   height: 35px;
-  margin-top: 10px;
   color: #fff;
   font-family: Varela Round;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: bold;
   text-align: center;
   background-color: #d9261c;
