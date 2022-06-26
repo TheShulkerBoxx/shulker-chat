@@ -8,6 +8,8 @@
     margin: 0 auto;
     color: white;
     padding: 15px 0;
+    transition-duration: 1000ms;
+    transition-timing-function: cubic-bezier(.99,.16,.7,.61);
 }
 .forms-in div {
     padding: 30px 20px;
@@ -49,17 +51,18 @@
     margin-bottom: 0px;
     font-size: 2.75em;
     font-family: "Fira Sans", sans-serif;
+    transition-duration: 700ms;
 }
 
 .hide {
     display: none;
 }
 
-#login-container {
-    transition-duration: 700ms;
-}
-
 .logged-in {
     opacity: 0;
     transform: rotate(360deg);
+}
+
+.fade-out {
+    opacity: 0;
 }

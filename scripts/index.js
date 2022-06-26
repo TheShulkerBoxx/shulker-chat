@@ -125,7 +125,8 @@ firebase
 
 auth.onAuthStateChanged((firebaseUser) => {
     if (firebaseUser) {
-        document.getElementById('login-container').classList.add("logged-in")
+        document.getElementById('another-container').classList.add("logged-in")
+        document.getElementById('main-title').classList.add("fade-out")
         setTimeout(function(){window.location.replace("chat.html")}, 700)
     }
 });
