@@ -19,7 +19,6 @@ document.querySelector("#show-register").addEventListener("click", () => {
 const showRegistration = () => {
     document.querySelector("#registration-page").classList.remove("hide");
     document.querySelector("#login-page").classList.add("hide");
-    document.querySelector("#homepage").classList.add("hide");
 };
 
 document.querySelector("#show-login").addEventListener("click", () => {
@@ -29,7 +28,6 @@ document.querySelector("#show-login").addEventListener("click", () => {
 function showLogin() {
     document.querySelector("#registration-page").classList.add("hide");
     document.querySelector("#login-page").classList.remove("hide");
-    document.querySelector("#homepage").classList.add("hide");
 }
 
 const register = () => {
@@ -113,13 +111,6 @@ const authenticate = (email, password) => {
             alert(errorMessage);
         });
 };
-
-const showHomepage = () => {
-    document.querySelector("#registration-page").classList.add("hide");
-    document.querySelector("#login-page").classList.add("hide");
-    document.querySelector("#homepage").classList.remove("hide");
-};
-
 const signOut = () => {
 firebase
     .auth()
@@ -134,6 +125,7 @@ firebase
 
 auth.onAuthStateChanged((firebaseUser) => {
     if (firebaseUser) {
-        window.location.replace("chat.html");
+        document.getElementById('login-container').classList.add("logged-in")
+        setTimeout(function(){window.location.replace("chat.html")}, 700)
     }
 });

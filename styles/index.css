@@ -37,6 +37,7 @@
     border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
+    transition-duration: 300ms;
 }
 
 .forms-in button:hover {
@@ -52,4 +53,13 @@
 
 .hide {
     display: none;
+}
+
+#login-container {
+    transition-duration: 700ms;
+}
+
+.logged-in {
+    opacity: 0;
+    transform: rotate(360deg);
 }

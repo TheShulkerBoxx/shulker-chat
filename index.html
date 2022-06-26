@@ -8,43 +8,45 @@
      <link rel="stylesheet" href="styles/index.css"/>
   </head>
   <body>
-    <center><h1 id = "main-title">Sign In or Sign Up to Continue</h1></center>
-    <div class="forms-out">
-      <div class="forms-in">
-        <div id="registration-page" class="hide">
-          <button id="show-login">Sign In</button>
-          <h3>Sign Up</h3>
-          Username
-          <br/>
-          <input type="email" id="registration-email"/>
-          <br/>
-          Confirm Username
-          <br/>
-          <input type="email" id="registration-reemail" autocomplete="disable"/>
-          <br/>
-          Password
-          <br/>
-          <input type="password" id="registration-password"/>
-          <br/>
-          <center>
-            <button id="register">Sign Up</button>
-          </center>
-        </div>
+    <div id = "login-container">
+      <center><h1 id = "main-title">Sign In or Sign Up to Continue</h1></center>
+      <div class="forms-out" id = "main-container">
+        <div class="forms-in" id = "another-container">
+          <div id="registration-page" class="hide">
+            <button id="show-login">Sign In</button>
+            <h3>Sign Up</h3>
+            Username
+            <br/>
+            <input type="email" id="registration-email"/>
+            <br/>
+            Confirm Username
+            <br/>
+            <input type="email" id="registration-reemail" autocomplete="disable"/>
+            <br/>
+            Password
+            <br/>
+            <input type="password" id="registration-password"/>
+            <br/>
+            <center>
+              <button id="register">Sign Up</button>
+            </center>
+          </div>
 
-        <div id="login-page">
-          <button id="show-register">Sign Up</button>
-          <h3>Sign In</h3>
-          Username
-          <br/>
-          <input type="email" id="login-email"/>
-          <br/>
-          Password
-          <br/>
-          <input type="password" id="login-password"/>
-          <br/>
-          <center>
-            <button id="login">Sign In</button>
-          </center>
+          <div id="login-page">
+            <button id="show-register">Sign Up</button>
+            <h3>Sign In</h3>
+            Username
+            <br/>
+            <input type="email" id="login-email"/>
+            <br/>
+            Password
+            <br/>
+            <input type="password" id="login-password"/>
+            <br/>
+            <center>
+              <button id="login">Sign In</button>
+            </center>
+          </div>
         </div>
       </div>
     </div>
