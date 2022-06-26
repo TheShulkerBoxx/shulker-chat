@@ -378,7 +378,7 @@ body{
   background-color: white;
 }
 
-#settings:hover{
+#gear:hover{
   animation-name: spin;
   animation-duration: 500ms;
   animation-iteration-count: 1;
