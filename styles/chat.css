@@ -376,6 +376,7 @@ body{
   height: 20px;
   outline-color: black;
   background-color: white;
+  cursor: pointer;
 }
 
 #gear:hover{
@@ -400,6 +401,7 @@ body{
 
 #notifications-toggle {
   float: center;
+  cursor: pointer;
 }
 
 #notifications-toggle.allowed {
