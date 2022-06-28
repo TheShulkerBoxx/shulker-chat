@@ -508,17 +508,6 @@ window.onload = function() {
               }
             }
         }
-
-        if (document.hidden){
-          db.ref(`/status/usernames/${userId}`).update({
-            onPage: 'false'
-          })
-        } else {
-          db.ref(`/status/usernames/${userId}`).update({
-            onPage: 'true'
-          })
-        }
-
         var guide = [] // this will be our guide to organizing the messages
         var unordered = [] // unordered messages
         var ordered = [] // we're going to order these messages
@@ -622,16 +611,12 @@ window.onload = function() {
           if (data.status == "online"){
             var name = data.name
             var typingStatus = data.typing
-            var OnPage = data.onPage
 
             var user_inner_container = document.createElement('div')
             user_inner_container.setAttribute('class', 'user_inner_container')
 
             var user_user = document.createElement('p')
             user_user.setAttribute('class', 'online_user')
-            if (OnPage == 'false'){
-              user_user.setAttribute('class', 'not_on_page')
-            }
 
             if (data.typing == "true"){
               user_user.innerHTML = `${name} <i>is typing...</i>`
@@ -658,7 +643,7 @@ window.onload = function() {
         db
           .ref(`/status/usernames/${userId}`)
           .onDisconnect() // Set up the disconnect hook
-          .update({status: 'offline', name: userId, typing: 'false', onPage: 'true'}) // The value to be set for this key when the client disconnects
+          .update({status: 'offline', name: userId, typing: 'false'}) // The value to be set for this key when the client disconnects
           .then(() => {
         // Set the Firestore User's online status to true
               usersRef
