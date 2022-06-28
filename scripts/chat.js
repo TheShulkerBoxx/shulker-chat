@@ -1,3 +1,10 @@
+if(localStorage.getItem('name') == null){
+  window.location.replace('index.html')
+  localStorage.setItem('first-time', 'true')
+}
+
+var again = false
+
 window.onload = function() {
   // Your web app's Firebase configuration
   var firebaseConfig = {
@@ -16,24 +23,11 @@ window.onload = function() {
   const db = firebase.database();
   const auth = firebase.auth();
 
-  if(localStorage.getItem('first-time') == null){
-    localStorage.setItem('first-time', 'true')
-    alert("Please enter the URL again")
-    window.location.replace("https://google.com")
-  }
-
   auth.onAuthStateChanged((firebaseUser) => {
     if (!firebaseUser) {
-        function home(){
-          window.location.replace("index.html")
-        }
-        const myTimeout = setTimeout(home, 500)
+        window.location.replace("index.html")
     }
-  });
-
-  if(localStorage.getItem('first-time') == "true"){
-    localStorage.setItem('first-time', 'false')
-  }
+});
 
   const usersRef = firestoreDb.collection('users'); // Get a reference to the Users collection;
   const onlineRef = db.ref('.info/connected'); // Get a reference to the list of connections
@@ -49,7 +43,15 @@ window.onload = function() {
     }
     // chat() is used to create the chat page
     chat(){
+      if (localStorage.getItem('first-time') == 'true'){
+        localStorage.setItem('first-time', 'false')
+        document.location.reload(true)
+        again = true
+      }
       this.create_title()
+      if (again){
+        document.location.reload(true)
+      }
       this.user_connection()
       this.create_chat()
       setInterval(this.refresh_chat(), 3000);
@@ -694,6 +696,9 @@ window.onload = function() {
   var largestIndex = 0
   var absoluteLargestIndex = 0
   var notifyAllowed = false
+  if (localStorage.getItem('first-time') == null){
+    localStorage.setItem('first-time', 'true')
+  }
   // We enclose this in window.onload.
   // So we don't have ridiculous errors.
 

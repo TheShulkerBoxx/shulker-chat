@@ -19,7 +19,6 @@ body{
 *, *::after, *::before {
   box-sizing: border-box;
 }
-
 .modal {
   position: fixed;
   top: 50%;
