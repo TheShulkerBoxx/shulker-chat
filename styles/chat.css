@@ -339,6 +339,11 @@ body{
   transition-timing-function: ease-in-out;
   height: 100px;
 }
+
+#title_container.chat_title_container:hover{
+  animation: pulse 5s linear infinite;
+}
+
 #title.chat_title{
   transition: 0.8s;
   font-size: 47px;
@@ -458,6 +463,17 @@ body{
   0% {filter: blur(5px);}
   100% {}
 }
+
+@keyframes pulse {
+  10% {background-color: #EA2F86;}
+  30% {background-color: #F09C0A;}
+  40% {background-color: #FAE000;}
+  50% {background-color: #93E223;}
+  70% {background-color: #4070D3;}
+  80% {background-color: #AB62E3;}
+  100% {background-color: #EA2F86;}
+}
+
 ::selection {
   background-color: #AB62E3;
   color: #fff;
