@@ -3,8 +3,6 @@ if(localStorage.getItem('name') == null){
   localStorage.setItem('first-time', 'true')
 }
 
-var again = false
-
 window.onload = function() {
   // Your web app's Firebase configuration
   var firebaseConfig = {
@@ -46,12 +44,8 @@ window.onload = function() {
       if (localStorage.getItem('first-time') == 'true'){
         localStorage.setItem('first-time', 'false')
         document.location.reload(true)
-        again = true
       }
       this.create_title()
-      if (again){
-        document.location.reload(true)
-      }
       this.user_connection()
       this.create_chat()
       setInterval(this.refresh_chat(), 3000);
@@ -321,7 +315,7 @@ window.onload = function() {
       var chat_input = document.createElement('input')
       chat_input.setAttribute('id', 'chat_input')
       // Only a max message length of 1000
-      chat_input.setAttribute('maxlength', 1000)
+      chat_input.setAttribute('maxlength', 500)
       // Get the name of the user
       chat_input.placeholder = `Type a message...`
       chat_input.onkeyup  = function(){
@@ -387,35 +381,42 @@ window.onload = function() {
     // Sends message/saves the message to firebase database
     send_message(message){
       var parent = this
+
+      function resetFunction(){
+        db.ref('chats/').remove()
+        const d = new Date();
+        if (d.getHours() > 12){
+          var hours = d.getHours() - 12
+          var ampm = 'PM'
+        }else{
+          var hours = d.getHours()
+          var ampm = 'AM'
+        }
+        if (d.getMinutes() < 10){
+          var minutes = "0" + d.getMinutes()
+        }else{
+          var minutes = d.getMinutes()
+        }
+        var month = d.getMonth() + 1
+        var date = d.getDate()
+        var year = d.getYear() - 100
+        var time = hours + ":" + minutes + ' ' + ampm + ' at ' + month + '/' + date + '/' + year
+          // This index is mortant. It will help organize the chat in order
+        db.ref('chats/' + 'message_1').set({
+          name: 'TheShulkerBox',
+          message: 'Server Reset',
+          index: 1,
+          time: time,
+        })
+      }
+
       if (message == "/remove-chat-instance"){
-          db.ref('chats/').remove()
-          const d = new Date();
-          if (d.getHours() > 12){
-            var hours = d.getHours() - 12
-            var ampm = 'PM'
-          }else{
-            var hours = d.getHours()
-            var ampm = 'AM'
-          }
-          if (d.getMinutes() < 10){
-            var minutes = "0" + d.getMinutes()
-          }else{
-            var minutes = d.getMinutes()
-          }
-          var month = d.getMonth() + 1
-          var date = d.getDate()
-          var year = d.getYear() - 100
-          var time = hours + ":" + minutes + ' ' + ampm + ' at ' + month + '/' + date + '/' + year
-            // This index is mortant. It will help organize the chat in order
-          db.ref('chats/' + 'message_1').set({
-            name: 'TheShulkerBox',
-            message: 'Server Reset',
-            index: 1,
-            time: time,
-          })
+          resetFunction()
           parent.refresh_chat()
           return (null)
   
+      } else if (message == "/function-reload"){
+        setTimeout(resetFunction, 10)
       }
       // if the local storage name is null and there is no message
       // then return/don't send the message. The user is somehow hacking
@@ -540,6 +541,10 @@ window.onload = function() {
           var name = data.name
           var message = data.message
           var time = data.time
+
+          if (data.message == "/function-reload"){
+            document.location.reload(true)
+          }
 
           var message_container = document.createElement('div')
           message_container.setAttribute('class', 'message_container')
