@@ -341,7 +341,7 @@ body{
 }
 
 #title_container.chat_title_container:hover{
-  animation: pulse 5s linear infinite;
+  animation: pulse 3s linear infinite;
 }
 
 #title.chat_title{
@@ -465,13 +465,12 @@ body{
 }
 
 @keyframes pulse {
-  10% {background-color: #EA2F86;}
-  30% {background-color: #F09C0A;}
-  40% {background-color: #FAE000;}
-  50% {background-color: #93E223;}
-  70% {background-color: #4070D3;}
-  80% {background-color: #AB62E3;}
-  100% {background-color: #EA2F86;}
+  16% {background-color: #EA2F86;}
+  32% {background-color: #F09C0A;}
+  48% {background-color: #FAE000;}
+  64% {background-color: #93E223;}
+  80% {background-color: #4070D3;}
+  90% {background-color: #AB62E3;}
 }
 
 ::selection {
