@@ -1,7 +1,8 @@
 if(localStorage.getItem('name') == null){
   window.location.replace('index.html')
-  localStorage.setItem('first-time', 'true')
 }
+
+currentChannel = "general"
 
 window.onload = function() {
   // Your web app's Firebase configuration
@@ -42,6 +43,7 @@ window.onload = function() {
     // chat() is used to create the chat page
     chat(){
       if (localStorage.getItem('first-time') == 'true'){
+        console.log('again')
         localStorage.setItem('first-time', 'false')
         document.location.reload(true)
       }
@@ -289,6 +291,10 @@ window.onload = function() {
       var chat_inner_container = document.createElement('div')
       chat_inner_container.setAttribute('id', 'chat_inner_container')
 
+      var channel_container = document.createElement('div')
+      channel_container.setAttribute('id', 'channel_container')
+      channel_container.innerHTML = 'Current Channel: #' + currentChannel
+
       var chat_content_container = document.createElement('div')
       chat_content_container.setAttribute('id', 'chat_content_container')
 
@@ -364,6 +370,7 @@ window.onload = function() {
       }
 
       chat_input_container.append(chat_input, chat_input_send)
+      chat_inner_container.append(channel_container)
       chat_inner_container.append(chat_content_container, chat_input_container)
       chat_container.append(chat_inner_container)
       chat_container.append(user_main_container)
@@ -383,7 +390,7 @@ window.onload = function() {
       var parent = this
 
       function resetFunction(){
-        db.ref('chats/').remove()
+        db.ref(`chats/${currentChannel}/`).remove()
         const d = new Date();
         if (d.getHours() > 12){
           var hours = d.getHours() - 12
@@ -402,7 +409,7 @@ window.onload = function() {
         var year = d.getYear() - 100
         var time = hours + ":" + minutes + ' ' + ampm + ' at ' + month + '/' + date + '/' + year
           // This index is mortant. It will help organize the chat in order
-        db.ref('chats/' + 'message_1').set({
+        db.ref(`chats/${currentChannel}/` + 'message_1').set({
           name: 'TheShulkerBox',
           message: 'Server Reset',
           index: 1,
@@ -417,6 +424,11 @@ window.onload = function() {
   
       } else if (message == "/function-reload"){
         setTimeout(resetFunction, 10)
+      } else if (message == "/change-channel"){
+        var newChannel = prompt("What channel do you want to change into?", "general");
+        currentChannel = newChannel
+        parent.refresh_chat()
+        return(null)
       }
       // if the local storage name is null and there is no message
       // then return/don't send the message. The user is somehow hacking
@@ -427,7 +439,7 @@ window.onload = function() {
       }
 
       // Get the firebase database value
-      db.ref('chats/').once('value', function(message_object) {
+      db.ref(`chats/${currentChannel}/`).once('value', function(message_object) {
         const d = new Date();
         if (d.getHours() > 12){
           var hours = d.getHours() - 12
@@ -447,7 +459,7 @@ window.onload = function() {
         var time = hours + ":" + minutes + ' ' + ampm + ' at ' + month + '/' + date + '/' + year
         // This index is mortant. It will help organize the chat in order
         var index = parseFloat(message_object.numChildren()) + 1
-        db.ref('chats/' + `message_${index}`).set({
+        db.ref(`chats/${currentChannel}/` + `message_${index}`).set({
           name: parent.get_name(),
           message: message,
           index: index,
@@ -475,7 +487,7 @@ window.onload = function() {
       var parent = this
 
       // Get the chats from firebase
-      db.ref('chats/').on('value', function(messages_object) {
+      db.ref(`chats/${currentChannel}/`).on('value', function(messages_object) {
         // When we get the data clear chat_content_container
         chat_content_container.innerHTML = ''
         // if there are no messages in the chat. Retrun . Don't load anything
@@ -687,7 +699,15 @@ window.onload = function() {
   var absoluteLargestIndex = 0
   var notifyAllowed = false
   if (localStorage.getItem('first-time') == null){
-    localStorage.setItem('first-time', 'true')
+    firebase
+      .auth()
+      .signOut()
+      .then(function () {
+        localStorage.clear()
+        localStorage.setItem('first-time', 'true')
+        alert("Please enter the website name and sign back in...")
+        location.replace("https://www.google.com");
+      })
   }
   // We enclose this in window.onload.
   // So we don't have ridiculous errors.
