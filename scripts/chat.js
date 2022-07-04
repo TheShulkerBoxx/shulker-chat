@@ -425,10 +425,18 @@ window.onload = function() {
       } else if (message == "/function-reload"){
         setTimeout(resetFunction, 10)
       } else if (message == "/change-channel"){
-        var newChannel = prompt("What channel do you want to change into?", "general");
-        currentChannel = newChannel
-        parent.refresh_chat()
-        return(null)
+        var newChannel = prompt("What channel do you want to change into?", currentChannel);
+
+        const acceptableChannels = ['general', 'gaming', 'school']
+
+        if (acceptableChannels.includes(newChannel)){
+          this.changeChannel(newChannel)
+          return(null)
+        } else{
+          alert("You have entered a channel name that doesn't exist. The current channels are: general, gaming, and school. Please do not include the # in the channel name.")
+          parent.refresh_chat()
+          return(null)
+        }
       }
       // if the local storage name is null and there is no message
       // then return/don't send the message. The user is somehow hacking
@@ -690,6 +698,11 @@ window.onload = function() {
       });
     }
 
+    changeChannel(channelName){
+      currentChannel = channelName
+      this.refresh_chat()
+    }
+
   }
 
   const channel = new BroadcastChannel('tab');
@@ -765,7 +778,7 @@ window.onload = function() {
     }
   }
 
-  
+
     // So we've "built" our app. Let's make it work!!
   var app = new MEME_CHAT()
     // If we have a name stored in localStorage.
