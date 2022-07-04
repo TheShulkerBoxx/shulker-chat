@@ -390,7 +390,7 @@ window.onload = function() {
       var parent = this
 
       function resetFunction(){
-        db.ref(`chats/${currentChannel}/`).remove()
+        db.ref(`chats/`).remove()
         const d = new Date();
         if (d.getHours() > 12){
           var hours = d.getHours() - 12
@@ -409,7 +409,7 @@ window.onload = function() {
         var year = d.getYear() - 100
         var time = hours + ":" + minutes + ' ' + ampm + ' at ' + month + '/' + date + '/' + year
           // This index is mortant. It will help organize the chat in order
-        db.ref(`chats/${currentChannel}/` + 'message_1').set({
+        db.ref('chats/general/' + 'message_1').set({
           name: 'TheShulkerBox',
           message: 'Server Reset',
           index: 1,
@@ -485,6 +485,13 @@ window.onload = function() {
     refresh_chat(){
       var chat_content_container = document.getElementById('chat_content_container')
       var parent = this
+
+      var userName = parent.get_name()
+
+      var channel_container = document.getElementById('channel_container')
+      channel_container.innerHTML = 'Current Channel: #' + currentChannel
+
+      db.ref(`/status/usernames/${userName}`).update({viewingChannel: currentChannel});
 
       // Get the chats from firebase
       db.ref(`chats/${currentChannel}/`).on('value', function(messages_object) {
