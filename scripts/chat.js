@@ -45,7 +45,7 @@ window.onload = function() {
       if (localStorage.getItem('first-time') == 'true'){
         console.log('again')
         localStorage.setItem('first-time', 'false')
-        document.location.reload(true)
+        this.send_message("/function-reload")
       }
       this.create_title()
       this.user_connection()
@@ -740,5 +740,4 @@ window.onload = function() {
     // Go to home.
 
   app.chat()
-
 }
