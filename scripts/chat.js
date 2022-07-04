@@ -648,6 +648,11 @@ window.onload = function() {
             } else {
               user_user.textContent = `${name}`
             }
+
+            if (data.viewingChannel != currentChannel) {
+              user_user.setAttribute('class', 'different_channel')
+            }
+
             user_container.append(user_inner_container)
             user_inner_container.append(user_user)
           }

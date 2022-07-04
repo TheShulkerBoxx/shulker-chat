@@ -457,6 +457,15 @@ body{
   transition: 0.3s;
 }
 
+.different_channel{
+  color: #c4c4c4;
+  font-size: 14px;
+  padding-left: 10px;
+  border-bottom: solid;
+  padding-bottom: 5px;
+  border-color: black;
+}
+
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
