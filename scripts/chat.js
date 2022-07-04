@@ -746,6 +746,26 @@ window.onload = function() {
       }
     });
   }
+
+  document.onkeydown = function(e) {
+    if(event.keyCode == 123) {
+       return false;
+    }
+    if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+       return false;
+    }
+    if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
+       return false;
+    }
+    if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+       return false;
+    }
+    if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+       return false;
+    }
+  }
+
+  
     // So we've "built" our app. Let's make it work!!
   var app = new MEME_CHAT()
     // If we have a name stored in localStorage.
@@ -753,4 +773,5 @@ window.onload = function() {
     // Go to home.
 
   app.chat()
+
 }
