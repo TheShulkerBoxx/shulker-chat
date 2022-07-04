@@ -713,8 +713,8 @@ window.onload = function() {
       .then(function () {
         localStorage.clear()
         localStorage.setItem('first-time', 'true')
-        alert("Please enter the website name and sign back in...")
-        location.replace("https://www.google.com");
+        alert("For security reasons, we require that you sign in again...")
+        location.reload()
       })
   }
   // We enclose this in window.onload.
