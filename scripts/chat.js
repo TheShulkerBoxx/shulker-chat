@@ -636,15 +636,16 @@ window.onload = function() {
             var name = data.name
             var typingStatus = data.typing
 
+
             var user_inner_container = document.createElement('div')
             user_inner_container.setAttribute('class', 'user_inner_container')
 
             var user_user = document.createElement('p')
             user_user.setAttribute('class', 'online_user')
 
-            if (data.typing == "true"){
+            if (data.typing == "true" && data.viewingChannel == currentChannel){
               user_user.innerHTML = `${name} <i>is typing...</i>`
-            } else if (data.typing == "false"){
+            } else {
               user_user.textContent = `${name}`
             }
             user_container.append(user_inner_container)
