@@ -374,6 +374,27 @@ window.onload = function() {
       chat_container.append(chat_inner_container)
       chat_container.append(user_main_container)
       document.body.append(chat_container)
+
+      channel_container.addEventListener('click', function () {
+        const acceptableChannels = ['general', 'gaming', 'school']
+
+        swal("Please enter the channel name to continue:", {
+          title: "Enter a Channel Name",  
+          content: "input",
+        })
+        .then((newChannel) => {
+
+          if (newChannel === null) return false;
+          
+          if (acceptableChannels.includes(newChannel)){
+            parent.changeChannel(newChannel)
+            parent.refresh_chat()
+          } else{
+            swal("Channel Not Found", "You have entered a channel name that doesn't exist. The current channels are: general, gaming, and school. Please do not include the # in the channel name.", "error")
+            parent.refresh_chat()
+          };
+        })
+      });
       // After creating the chat. We immediatly create a loading circle in the 'chat_content_container'
       parent.create_load('chat_content_container')
       // then we "refresh" and get the chat data from Firebase

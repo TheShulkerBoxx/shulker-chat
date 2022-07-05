@@ -332,6 +332,7 @@ body{
   text-align: center;
   border-bottom: solid;
   margin-bottom: 15px;
+  cursor: pointer;
 }
 
 .enabled{
