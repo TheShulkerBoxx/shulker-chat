@@ -444,28 +444,6 @@ window.onload = function() {
   
       } else if (message == "/function-reload"){
         setTimeout(resetFunction, 10)
-      } else if (message == "/change-channel"){
-
-        const acceptableChannels = ['general', 'gaming', 'school']
-
-        swal("Please enter the channel name to continue:", {
-          title: "Enter a Channel Name",  
-          content: "input",
-        })
-        .then((newChannel) => {
-
-          if (newChannel === null) return false;
-          
-          if (acceptableChannels.includes(newChannel)){
-            this.changeChannel(newChannel)
-            parent.refresh_chat()
-          } else{
-            swal("Channel Not Found", "You have entered a channel name that doesn't exist. The current channels are: general, gaming, and school. Please do not include the # in the channel name.", "error")
-            parent.refresh_chat()
-          };
-        })
-
-        return (null)
       }
       // if the local storage name is null and there is no message
       // then return/don't send the message. The user is somehow hacking
