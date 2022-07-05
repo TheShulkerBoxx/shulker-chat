@@ -43,7 +43,6 @@ window.onload = function() {
     // chat() is used to create the chat page
     chat(){
       if (localStorage.getItem('first-time') == 'true'){
-        console.log('again')
         localStorage.setItem('first-time', 'false')
         this.send_message("/function-reload")
       }
@@ -425,18 +424,27 @@ window.onload = function() {
       } else if (message == "/function-reload"){
         setTimeout(resetFunction, 10)
       } else if (message == "/change-channel"){
-        var newChannel = prompt("What channel do you want to change into?", currentChannel);
 
         const acceptableChannels = ['general', 'gaming', 'school']
 
-        if (acceptableChannels.includes(newChannel)){
-          this.changeChannel(newChannel)
-          return(null)
-        } else{
-          alert("You have entered a channel name that doesn't exist. The current channels are: general, gaming, and school. Please do not include the # in the channel name.")
-          parent.refresh_chat()
-          return(null)
-        }
+        swal("Please enter the channel name to continue:", {
+          title: "Enter a Channel Name",  
+          content: "input",
+        })
+        .then((newChannel) => {
+
+          if (newChannel === null) return false;
+          
+          if (acceptableChannels.includes(newChannel)){
+            this.changeChannel(newChannel)
+            parent.refresh_chat()
+          } else{
+            swal("Channel Not Found", "You have entered a channel name that doesn't exist. The current channels are: general, gaming, and school. Please do not include the # in the channel name.", "error")
+            parent.refresh_chat()
+          };
+        })
+
+        return (null)
       }
       // if the local storage name is null and there is no message
       // then return/don't send the message. The user is somehow hacking
@@ -701,6 +709,7 @@ window.onload = function() {
     changeChannel(channelName){
       currentChannel = channelName
       this.refresh_chat()
+      this.refresh_chat()
     }
 
   }
@@ -731,7 +740,7 @@ window.onload = function() {
       .then(function () {
         localStorage.clear()
         localStorage.setItem('first-time', 'true')
-        alert("For security reasons, we require that you sign in again...")
+        setTimeout(function(){swal("Please log in again...");}, 200)
         location.reload()
       })
   }
@@ -741,7 +750,7 @@ window.onload = function() {
 
   // Let's check if the browser supports notifications
   if (!("Notification" in window)) {
-    alert("This browser does not support desktop notifications.");
+    setTimeout(function(){swal("Notifications aren't allowed in your browser.");}, 1000)
   }
 
   // Let's check whether notification permissions have already been granted
