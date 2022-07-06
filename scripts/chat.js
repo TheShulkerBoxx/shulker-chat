@@ -527,9 +527,7 @@ window.onload = function() {
 
       // Get the chats from firebase
       db.ref(`chats/${currentChannel}/`).on('value', function(messages_object) {
-        console.log(currentChannel)
-        // When we get the data clear chat_content_container
-        chat_content_container.innerHTML = ''
+        console.log(`chats/${currentChannel}/`)
         // if there are no messages in the chat. Retrun . Don't load anything
         if(messages_object.numChildren() == 0){
           return
@@ -555,6 +553,9 @@ window.onload = function() {
           canExit = true
           return (null)
         }
+        
+        // When we get the data clear chat_content_container
+        chat_content_container.innerHTML = ''
 
         if (largestIndex > absoluteLargestIndex){
             absoluteLargestIndex = largestIndex
