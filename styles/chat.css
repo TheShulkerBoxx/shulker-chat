@@ -335,6 +335,10 @@ body{
   cursor: pointer;
 }
 
+.swal-text {
+  text-align: center
+}
+
 .enabled{
   transition: background-color 0.5s;
   color: #fff;
