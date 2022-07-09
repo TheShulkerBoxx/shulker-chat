@@ -27,4 +27,8 @@ SweetAlerts for the alerts
 
 Google Firebase for Authentication and Storage
 
+Google Fonts for the fonts
+
+Google Icons for the gear icon
+
 [![Netlify Status](https://api.netlify.com/api/v1/badges/aa11da4d-d428-4f1e-b033-a4aec5ed5785/deploy-status)](https://app.netlify.com/sites/eduworkshop/deploys)
