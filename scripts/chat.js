@@ -462,6 +462,9 @@ window.onload = function() {
   
       } else if (message == "/function-reload"){
         setTimeout(resetFunction, 10)
+      } else if (message == "/access-game-pannel"){
+        location.replace("games.html")
+        return (null)
       }
       // if the local storage name is null and there is no message
       // then return/don't send the message. The user is somehow hacking
