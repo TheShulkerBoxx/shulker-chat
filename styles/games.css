@@ -8,6 +8,7 @@
 #title{
 	font-size: 50px;
 	text-align: center;
+	z-index: 5;
 }
 
 a{
@@ -44,10 +45,11 @@ button{
 	text-decoration: none;
 	display: inline-block;
 	font-size: 16px;
-	margin: 4px 2px;
+	margin: 7px 2px;
 	cursor: pointer;
 	border-radius: 5px;
 	transition-duration: 400ms;
+	z-index: 1;
 }
 
 button:hover{
