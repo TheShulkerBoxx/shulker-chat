@@ -42,4 +42,8 @@ function thirdPartyNotice(){
    swal("Third-Party Notice", "None of these websites are owned by Educational Workshop, this we cannot guarantee anything that happens on these websites. Enter at your own risk. We are not responsible for anything that happens there. If you have a website that does not work, please contact the owner.", "info")
 }
 
+function home(){
+   location.replace("chat.html")
+}
+
 setTimeout(thirdPartyNotice, 500)
