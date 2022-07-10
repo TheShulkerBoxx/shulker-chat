@@ -59,7 +59,6 @@ window.onload = function() {
       this.create_title()
       this.user_connection()
       this.create_chat()
-      setInterval(this.refresh_chat(), 3000);
     }
     // create_title() is used to create the title
     create_title(){
