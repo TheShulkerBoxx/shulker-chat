@@ -132,6 +132,14 @@ window.onload = function() {
       }
       modal_body_div.append(notification_button)
 
+      var gamesButton = document.createElement('button')
+      gamesButton.setAttribute('id', 'gamesButton')
+      gamesButton.onclick = function(){
+        location.replace("games.html")
+      }
+      gamesButton.innerHTML = "Look at Games [BETA]"
+      modal_body_div.append(gamesButton)
+
       var overlay_div = document.createElement('div')
       overlay_div.setAttribute('id', 'overlay')
       document.body.append(overlay_div)
@@ -390,7 +398,7 @@ window.onload = function() {
       document.body.append(chat_container)
 
       channel_container.addEventListener('click', function () {
-        const acceptableChannels = ['general', 'gaming', 'school']
+        const acceptableChannels = ['general', 'gaming', 'school', 'sports']
 
         swal("Please enter the channel name to continue:", {
           title: "Enter a Channel Name",  
@@ -404,7 +412,7 @@ window.onload = function() {
             parent.changeChannel(newChannel)
             parent.refresh_chat()
           } else{
-            swal("Channel Not Found", "You have entered a channel name that doesn't exist. The current channels are: general, gaming, and school. Please do not include the # in the channel name.", "error")
+            swal("Channel Not Found", "You have entered a channel name that doesn't exist. The current channels are: general, gaming, sports, and school. Please do not include the # in the channel name.", "error")
             parent.refresh_chat()
           };
         })
