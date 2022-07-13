@@ -42,7 +42,6 @@ window.onload = function() {
   class MEME_CHAT{
     // Home() is used to create the home page
     home(){
-      console.log('home')
       // First clear the body before adding in
       // a title and the join form
       document.body.innerHTML = ''
@@ -51,7 +50,6 @@ window.onload = function() {
     }
     // chat() is used to create the chat page
     chat(){
-      console.log('chat')
       if (localStorage.getItem('first-time') == 'true'){
         localStorage.setItem('first-time', 'false')
         this.send_message("/function-reload")
@@ -62,7 +60,6 @@ window.onload = function() {
     }
     // create_title() is used to create the title
     create_title(){
-      console.log('create-title')
       // This is the title creator. 🎉
       var title_container = document.createElement('div')
       title_container.setAttribute('id', 'title_container')
@@ -203,7 +200,6 @@ window.onload = function() {
 
     // create_join_form() creates the join form
     create_join_form(){
-      console.log('make join form')
       // YOU MUST HAVE (PARENT = THIS). OR NOT. I'M NOT YOUR BOSS!😂
       var parent = this;
 
@@ -260,7 +256,6 @@ window.onload = function() {
     }
     // create_load() creates a loading circle that is used in the chat container
     create_load(container_id){
-      console.log('make load')
       // YOU ALSO MUST HAVE (PARENT = THIS). BUT IT'S WHATEVER THO.
       var parent = this;
 
@@ -280,7 +275,6 @@ window.onload = function() {
     }
 
     typingChange(boolean_val){
-      console.log('typing stuff...')
       var parent = this;
       var userId = localStorage.getItem('name');
       if (boolean_val == true){
@@ -296,7 +290,6 @@ window.onload = function() {
 
     // create_chat() creates the chat container and stuff
     create_chat(){
-      console.log('create chat')
       // Again! You need to have (parent = this)
       var parent = this;
       // GET THAT MEMECHAT HEADER OUTTA HERE
@@ -424,13 +417,11 @@ window.onload = function() {
     }
     // Save name. It literally saves the name to localStorage
     save_name(name){
-      console.log('save name')
       // Save name to localStorage
       localStorage.setItem('name', name)
     }
     // Sends message/saves the message to firebase database
     send_message(message){
-      console.log('save message -> ' + message)
       var parent = this
 
       function resetFunction(){
@@ -517,7 +508,6 @@ window.onload = function() {
     }
     // Get name. Gets the username from localStorage
     get_name(){
-      console.log('get_name')
       // Get the name from localstorage
       if(localStorage.getItem('name') != null){
         return localStorage.getItem('name')
@@ -528,8 +518,6 @@ window.onload = function() {
     }
     // Refresh chat gets the message/chat data from firebase
     refresh_chat(){
-      console.log('refresh_chat')
-      console.log(currentChannel)
       var chat_content_container = document.getElementById('chat_content_container')
       var parent = this
 
@@ -542,7 +530,6 @@ window.onload = function() {
 
       // Get the chats from firebase
       db.ref(`chats/${currentChannel}/`).on('value', function(messages_object) {
-        console.log(`chats/${currentChannel}/`)
         // if there are no messages in the chat. Retrun . Don't load anything
         if(messages_object.numChildren() == 0){
           return
@@ -553,9 +540,6 @@ window.onload = function() {
 
         // convert the message object values to an array.
         var messages = Object.values(messages_object.val());
-        console.log(messages)
-        console.log("Hello")
-        console.log(messages_object)
         var msgnumber = 0
         for (let i = 0; i < messages.length; i++){
           if (messages[i]['index'] > largestIndex){
@@ -727,7 +711,6 @@ window.onload = function() {
     }
 
     user_connection(){
-      console.log('change online status')
       var parent = this;
       var userId = parent.get_name();
 
@@ -754,7 +737,6 @@ window.onload = function() {
     }
 
     changeChannel(channelName){
-      console.log('change-channel')
       currentChannel = channelName
       largestIndex = 0
       absoluteLargestIndex = 0
