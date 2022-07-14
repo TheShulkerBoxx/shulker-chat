@@ -35,7 +35,7 @@ window.onload = function() {
   const onlineRef = db.ref('.info/connected'); // Get a reference to the list of connections
 
   setTimeout(function(){
-    swal("Privacy Statement", "By using this website, you agree that you will not tell any other people about this website. You also agree that you are only using this service if you have special permission from the owner to do so. We are not responsible for anything you do on the website. If you do not agree with these terms, please stop using this service right now.", "info")
+    swal("Privacy Statement", "By using this website, you agree that you will not tell any other people about this website. You also agree that you are only using this service if you have special permission from the owner to do so. We are not responsible for anything you do on the website. You also agree that you cannot use other users' real names while using this platform. If you do not agree with these terms, please stop using this service right now.", "info")
   }, 1000)
 
   // We're going to use oBjEcT OrIeNtEd PrOgRaMmInG. Lol
