@@ -2,3 +2,6 @@ test.html
 todo.txt
 .DS_Store
 AllUsers.json
+
+# Local Netlify folder
+.netlify
