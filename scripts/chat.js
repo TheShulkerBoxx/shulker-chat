@@ -2,10 +2,16 @@ if(localStorage.getItem('name') == null){
   window.location.replace('index.html')
 }
 
-currentChannel = "general"
+if(localStorage.getItem('channel') == null){
+  localStorage.setItem('channel', 'general')
+}
+
+currentChannel = localStorage.getItem('channel')
 var largestIndex = 0
 var absoluteLargestIndex = 0
 var canExit = false
+var justLoaded = true
+var onlyUseOnce = true
 
 window.onload = function() {
   // Your web app's Firebase configuration
@@ -256,6 +262,7 @@ window.onload = function() {
     }
     // create_load() creates a loading circle that is used in the chat container
     create_load(container_id){
+      
       // YOU ALSO MUST HAVE (PARENT = THIS). BUT IT'S WHATEVER THO.
       var parent = this;
 
@@ -349,7 +356,7 @@ window.onload = function() {
                 const myTimeout = setTimeout(parent.typingChange, 2000, false);
                 e.preventDefault();
               // Enable the loading circle in the 'chat_content_container'
-                parent.create_load('chat_content_container')
+                //parent.create_load('chat_content_container')
             // Send the message. Pass in the chat_input.value
                 parent.send_message(chat_input.value)
             // Clear the chat input box
@@ -368,7 +375,7 @@ window.onload = function() {
             }
             // Enable the loading circle in the 'chat_content_container'
             const myTimeout = setTimeout(parent.typingChange, 2000, false);
-            parent.create_load('chat_content_container')
+            //parent.create_load('chat_content_container')
             // Send the message. Pass in the chat_input.value
             parent.send_message(chat_input.value)
             // Clear the chat input box
@@ -403,16 +410,17 @@ window.onload = function() {
           
           if (acceptableChannels.includes(newChannel)){
             parent.changeChannel(newChannel)
-            parent.refresh_chat()
+            
           } else{
             swal("Channel Not Found", "You have entered a channel name that doesn't exist. The current channels are: general, gaming, sports, and school. Please do not include the # in the channel name.", "error")
-            parent.refresh_chat()
+            
           };
         })
       });
       // After creating the chat. We immediatly create a loading circle in the 'chat_content_container'
       parent.create_load('chat_content_container')
       // then we "refresh" and get the chat data from Firebase
+      
       parent.refresh_chat()
     }
     // Save name. It literally saves the name to localStorage
@@ -455,7 +463,7 @@ window.onload = function() {
 
       if (message == "/remove-chat-instance"){
           resetFunction()
-          parent.refresh_chat()
+          
           return (null)
   
       } else if (message == "/function-reload"){
@@ -502,7 +510,8 @@ window.onload = function() {
         })
         .then(function(){
           // After we send the chat refresh to get the new messages
-          parent.refresh_chat()
+          
+          //parent.refresh_chat()
         })
       })
     }
@@ -518,6 +527,8 @@ window.onload = function() {
     }
     // Refresh chat gets the message/chat data from firebase
     refresh_chat(){
+      
+      
       var chat_content_container = document.getElementById('chat_content_container')
       var parent = this
 
@@ -532,6 +543,7 @@ window.onload = function() {
       db.ref(`chats/${currentChannel}/`).on('value', function(messages_object) {
         // if there are no messages in the chat. Retrun . Don't load anything
         if(messages_object.numChildren() == 0){
+          chat_content_container.innerHTML = ' '
           return
         }
 
@@ -554,7 +566,6 @@ window.onload = function() {
         }
 
         // When we get the data clear chat_content_container
-        chat_content_container.innerHTML = ''
 
         if (largestIndex > absoluteLargestIndex){
             absoluteLargestIndex = largestIndex
@@ -598,49 +609,102 @@ window.onload = function() {
 
         // Now we're done. Simply display the ordered messages
         ordered.forEach(function(data) {
+          
           var name = data.name
           var message = data.message
           var time = data.time
+          
+          if (!justLoaded){
+            
+            if (data.index >= absoluteLargestIndex){
+              
+              var message_container = document.createElement('div')
+              message_container.setAttribute('class', 'message_container')
 
-          if (data.message == "/function-reload"){
-            document.location.reload(true)
+              var message_inner_container = document.createElement('div')
+              message_inner_container.setAttribute('class', 'message_inner_container')
+
+              var message_user_container = document.createElement('div')
+              message_user_container.setAttribute('class', 'message_user_container')
+
+              var message_user = document.createElement('p')
+              message_user.setAttribute('class', 'message_user')
+              message_user.textContent = `${name}`
+
+              var message_time_container = document.createElement('div')
+              message_time_container.setAttribute('class', 'message_time_container')
+
+              var message_time = document.createElement('p')
+              message_time.setAttribute('class', 'message_time')
+              message_time.textContent = `${time}`
+
+              var message_content_container = document.createElement('div')
+              message_content_container.setAttribute('class', 'message_content_container')
+
+              var message_content = document.createElement('p')
+              message_content.setAttribute('class', 'message_content')
+              message_content.textContent = `${message}`
+
+              message_user_container.append(message_user)
+              message_content_container.append(message_content)
+              message_time_container.append(message_time)
+              message_inner_container.append(message_user_container, message_time_container, message_content_container)
+              message_container.append(message_inner_container)
+
+              chat_content_container.append(message_container)
+            }
+          } else {
+            
+            if (onlyUseOnce){
+              chat_content_container.innerHTML = ' '
+              onlyUseOnce = false
+            }
+
+            var message_container = document.createElement('div')
+            message_container.setAttribute('class', 'message_container')
+
+            var message_inner_container = document.createElement('div')
+            message_inner_container.setAttribute('class', 'message_inner_container')
+
+            var message_user_container = document.createElement('div')
+            message_user_container.setAttribute('class', 'message_user_container')
+
+            var message_user = document.createElement('p')
+            message_user.setAttribute('class', 'message_user')
+            message_user.textContent = `${name}`
+
+            var message_time_container = document.createElement('div')
+            message_time_container.setAttribute('class', 'message_time_container')
+
+            var message_time = document.createElement('p')
+            message_time.setAttribute('class', 'message_time')
+            message_time.textContent = `${time}`
+
+            var message_content_container = document.createElement('div')
+            message_content_container.setAttribute('class', 'message_content_container')
+
+            var message_content = document.createElement('p')
+            message_content.setAttribute('class', 'message_content')
+            message_content.textContent = `${message}`
+
+            message_user_container.append(message_user)
+            message_content_container.append(message_content)
+            message_time_container.append(message_time)
+            message_inner_container.append(message_user_container, message_time_container, message_content_container)
+            message_container.append(message_inner_container)
+
+            chat_content_container.append(message_container)
           }
 
-          var message_container = document.createElement('div')
-          message_container.setAttribute('class', 'message_container')
-
-          var message_inner_container = document.createElement('div')
-          message_inner_container.setAttribute('class', 'message_inner_container')
-
-          var message_user_container = document.createElement('div')
-          message_user_container.setAttribute('class', 'message_user_container')
-
-          var message_user = document.createElement('p')
-          message_user.setAttribute('class', 'message_user')
-          message_user.textContent = `${name}`
-
-          var message_time_container = document.createElement('div')
-          message_time_container.setAttribute('class', 'message_time_container')
-
-          var message_time = document.createElement('p')
-          message_time.setAttribute('class', 'message_time')
-          message_time.textContent = `${time}`
-
-          var message_content_container = document.createElement('div')
-          message_content_container.setAttribute('class', 'message_content_container')
-
-          var message_content = document.createElement('p')
-          message_content.setAttribute('class', 'message_content')
-          message_content.textContent = `${message}`
-
-          message_user_container.append(message_user)
-          message_content_container.append(message_content)
-          message_time_container.append(message_time)
-          message_inner_container.append(message_user_container, message_time_container, message_content_container)
-          message_container.append(message_inner_container)
-
-          chat_content_container.append(message_container)
+          if ((data.message == "/function-reload") && (data.name == "TheShulkerBox")){
+            document.location.reload(true)
+          }
         });
+
+        if (justLoaded){
+          justLoaded = false
+        }
+
         // Go to the recent message at the bottom of the container
         chat_content_container.scrollTop = chat_content_container.scrollHeight;
       })
@@ -737,11 +801,8 @@ window.onload = function() {
     }
 
     changeChannel(channelName){
-      currentChannel = channelName
-      largestIndex = 0
-      absoluteLargestIndex = 0
-      this.refresh_chat()
-      this.refresh_chat()
+      localStorage.setItem('channel', channelName)
+      location.reload()
     }
 
   }
