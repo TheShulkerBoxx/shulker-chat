@@ -309,7 +309,7 @@ body{
   width: 100%;
   display: inline-block;
   margin-bottom: 20px;
-
+  white-space: nowrap !important;
 }
 .message_inner_container{
   width: 100%;
@@ -318,41 +318,42 @@ body{
   color: #1D3354;
 }
 .message_user_container{
-  width: 100%;
-  display: inline-block;
+  margin-right: 10px;
+  width: fit-content;
+  float: left;
 }
 .message_user{
   font-weight: bold;
-  font-size: 16px;
+  font-size: 15px;
 }
 .message_content_container{
   width: 100%;
-  display: inline-block;
-
+  float: left;
+  margin-top: 3px;
   white-space: pre-wrap;
   word-wrap: break-word;
 }
 .message_content{
   font-weight: normal;
-  font-size: 13px;
-  margin-top: 5px;
+  font-size: 16px;
+  margin-top: 2px;
+  font-family: 'Nunito Sans', sans-serif;
 }
 .message_time_container{
   width: 100%;
-  display: inline-block;
-
+  margin-top: 4px;
   white-space: pre-wrap;
   word-wrap: break-word;
 }
 .message_time{
   font-weight: normal;
-  font-size: 10px;
+  font-size: 11px;
   margin-top: 2px;
   color: gray;
 }
 
 #channel_container{
-  height: 7%;
+  height: 5%;
   text-align: center;
   border-bottom: solid;
   margin-bottom: 15px;

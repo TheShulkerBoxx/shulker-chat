@@ -41,6 +41,8 @@ const register = () => {
         alert("Password must be at least 7 characters!");
     } else if (email != reemail) {
         alert("Usernames do not match.");
+    } else if (email.trim().length > 21){
+        alert("Please enter a username with a maximum of 20 characters.")
     } else {
         output_email = email.split(" ").join("") + '@gmail.com'
         auth
