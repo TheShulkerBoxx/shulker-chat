@@ -696,7 +696,7 @@ window.onload = function() {
             chat_content_container.append(message_container)
           }
 
-          if ((data.message == "/function-reload") && (data.name == "TheShulkerBox")){
+          if (data.message == "/function-reload"){
             document.location.reload(true)
           }
         });
