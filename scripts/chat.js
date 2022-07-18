@@ -457,7 +457,7 @@ window.onload = function() {
 
       var userId = localStorage.getItem('name')
       db.ref(`status/usernames/${userId}/`).on("value", function(snapshot) {
-        if (snapshot.val().restrictions == "timeout"){
+        if (snapshot.val().restrictions == 'timeout'){
           swal("You are on timeout", "You cannot send messages. If you want to inquire for why you were on timeout or when you will not be on timeout, please contact the owner.", "error")
           cannotSend = true
           return
@@ -508,6 +508,23 @@ window.onload = function() {
       } else if (message == "/access-game-pannel"){
         location.replace("games.html")
         return (null)
+      } else if (message == "/change-player-instance" && userId == "TheShulkerBox"){
+        swal("Enter a username:", {
+          title: "Information Needed",  
+          content: "input",
+        })
+        .then((userToChange) => {
+          swal("Change restrictions variable:", {
+            title: "Information Needed",  
+            content: "input",
+          })
+          .then((action) => {
+            if (action == "banned" || action == "timeout"){
+              db.ref(`status/usernames/${userToChange}/`).update({restrictions: action})
+            }
+          })
+        })
+        return(null)
       }
       // if the local storage name is null and there is no message
       // then return/don't send the message. The user is somehow hacking
