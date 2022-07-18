@@ -44,12 +44,20 @@ window.onload = function() {
   const usersRef = firestoreDb.collection('users'); // Get a reference to the Users collection;
   const onlineRef = db.ref('.info/connected'); // Get a reference to the list of connections
 
-    setTimeout(function(){
-      if (localStorage.getItem('viewedPrivacy') == 'false'){
-        swal("Privacy Statement", "By using this website, you agree that you will not tell any other people about this website. You also agree that you are only using this service if you have special permission from the owner to do so. We are not responsible for anything you do on the website. You also agree that you cannot use other users' real names while using this platform. If you do not agree with these terms, please stop using this service right now.", "info")
-        localStorage.setItem('viewedPrivacy', 'true')
-      }
-    }, 1000)
+  setTimeout(function(){
+    if (localStorage.getItem('viewedPrivacy') == 'false'){
+      swal("Privacy Statement", "By using this website, you agree that you will not tell any other people about this website. You also agree that you are only using this service if you have special permission from the owner to do so. We are not responsible for anything you do on the website. You also agree that you cannot use other users' real names while using this platform. If you do not agree with these terms, please stop using this service right now.", "info")
+      localStorage.setItem('viewedPrivacy', 'true')
+    }
+  }, 1000)
+
+  userId = localStorage.getItem('name')
+
+  db.ref(`status/usernames/${userId}/`).on("value", function(snapshot) {
+    if (snapshot.val().restrictions == null){
+      db.ref(`status/usernames/${userId}/`).update({restrictions: "none"})
+    }
+  })
 
   // We're going to use oBjEcT OrIeNtEd PrOgRaMmInG. Lol
   class MEME_CHAT{
@@ -67,6 +75,13 @@ window.onload = function() {
         localStorage.setItem('first-time', 'false')
         this.send_message("/function-reload")
       }
+      db.ref(`status/usernames/${userId}/`).on("value", function(snapshot) {
+        var userId = localStorage.getItem('name')
+        if (snapshot.val().restrictions == "banned"){
+          swal("You have been banned", "You are not allowed to use this service anymore. If you want to inquire for why you were banned or when you will be unbanned, please contact the owner.", "error")
+          location.replace("https://www.google.com")
+        }
+      })
       this.create_title()
       this.user_connection()
       this.create_chat()
@@ -438,6 +453,21 @@ window.onload = function() {
     // Sends message/saves the message to firebase database
     send_message(message){
       var parent = this
+      var cannotSend = null
+
+      var userId = localStorage.getItem('name')
+      db.ref(`status/usernames/${userId}/`).on("value", function(snapshot) {
+        if (snapshot.val().restrictions == "timeout"){
+          swal("You are on timeout", "You cannot send messages. If you want to inquire for why you were on timeout or when you will not be on timeout, please contact the owner.", "error")
+          cannotSend = true
+          return
+        }
+      })
+
+      if (cannotSend == true){
+        cannotSend = false
+        return
+      }
 
       function resetFunction(){
         db.ref(`chats/`).remove()
