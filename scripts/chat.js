@@ -519,7 +519,7 @@ window.onload = function() {
             content: "input",
           })
           .then((action) => {
-            if (action == "banned" || action == "timeout"){
+            if (action == "banned" || action == "timeout" || action == "none"){
               db.ref(`status/usernames/${userToChange}/`).update({restrictions: action})
             }
           })
