@@ -16,6 +16,7 @@ var absoluteLargestIndex = 0
 var canExit = false
 var justLoaded = true
 var onlyUseOnce = true
+var acceptableChannels = ['general', 'gaming', 'school', 'sports']
 
 window.onload = function() {
   // Your web app's Firebase configuration
@@ -331,12 +332,11 @@ window.onload = function() {
       var chat_container = document.createElement('div')
       chat_container.setAttribute('id', 'chat_container')
 
-      var chat_inner_container = document.createElement('div')
-      chat_inner_container.setAttribute('id', 'chat_inner_container')
-
       var channel_container = document.createElement('div')
       channel_container.setAttribute('id', 'channel_container')
-      channel_container.innerHTML = 'Current Channel: #' + currentChannel
+
+      var chat_inner_container = document.createElement('div')
+      chat_inner_container.setAttribute('id', 'chat_inner_container')
 
       var chat_content_container = document.createElement('div')
       chat_content_container.setAttribute('id', 'chat_content_container')
@@ -415,30 +415,10 @@ window.onload = function() {
       chat_input_container.append(chat_input, chat_input_send)
       chat_inner_container.append(channel_container)
       chat_inner_container.append(chat_content_container, chat_input_container)
+      chat_container.append(channel_container)
       chat_container.append(chat_inner_container)
       chat_container.append(user_main_container)
       document.body.append(chat_container)
-
-      channel_container.addEventListener('click', function () {
-        const acceptableChannels = ['general', 'gaming', 'school', 'sports']
-
-        swal("Please enter the channel name to continue:", {
-          title: "Enter a Channel Name",  
-          content: "input",
-        })
-        .then((newChannel) => {
-
-          if (newChannel === null) return false;
-          
-          if (acceptableChannels.includes(newChannel)){
-            parent.changeChannel(newChannel)
-            
-          } else{
-            swal("Channel Not Found", "You have entered a channel name that doesn't exist. The current channels are: general, gaming, sports, and school. Please do not include the # in the channel name.", "error")
-            
-          };
-        })
-      });
       // After creating the chat. We immediatly create a loading circle in the 'chat_content_container'
       parent.create_load('chat_content_container')
       // then we "refresh" and get the chat data from Firebase
@@ -587,9 +567,6 @@ window.onload = function() {
       var parent = this
 
       var userName = parent.get_name()
-
-      var channel_container = document.getElementById('channel_container')
-      channel_container.innerHTML = 'Current Channel: #' + currentChannel
 
       db.ref(`/status/usernames/${userName}`).update({viewingChannel: currentChannel});
 
@@ -826,6 +803,24 @@ window.onload = function() {
       })
       var userId = parent.get_name()
       db.ref(`/status/usernames/${userId}`).update({status: "online"})
+
+      var channel_container = document.getElementById('channel_container')
+
+      for (let i in acceptableChannels){
+        const channelName = document.createElement('p')
+        channelName.innerHTML = "#" + acceptableChannels[i]
+        if (acceptableChannels[i] == currentChannel){
+          channelName.setAttribute('class', 'activatedChannel')
+        } else {
+          channelName.setAttribute('class', 'deactivatedChannel')
+          channelName.addEventListener('click', function () {
+            parent.changeChannel(acceptableChannels[i])
+          })
+        }
+
+        channel_container.append(channelName)
+      }
+
     }
 
     user_connection(){
