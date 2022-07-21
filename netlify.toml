@@ -1,0 +1,11 @@
+[[redirects]]
+  from = "/games.html"
+  to = "/games"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/chat.html"
+  to = "/chat"
+  status = 301
+  force = true
