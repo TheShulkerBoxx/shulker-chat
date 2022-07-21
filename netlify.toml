@@ -9,3 +9,9 @@
   to = "/chat"
   status = 301
   force = true
+
+[[redirects]]
+  from = "/index.html"
+  to = "/"
+  status = 301
+  force = true
