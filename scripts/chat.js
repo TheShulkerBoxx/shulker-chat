@@ -16,7 +16,7 @@ var absoluteLargestIndex = 0
 var canExit = false
 var justLoaded = true
 var onlyUseOnce = true
-var acceptableChannels = ['general', 'gaming', 'school', 'sports']
+var acceptableChannels = ['general', 'gaming', 'school', 'sports', 'e']
 
 window.onload = function() {
   // Your web app's Firebase configuration
