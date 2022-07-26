@@ -10,6 +10,8 @@ if (localStorage.getItem('viewedPrivacy') == null){
   localStorage.setItem('viewedPrivacy', 'false')
 }
 
+//import {getStorage, ref as Sref, uploadBytes} from "https://www.gstatic.com/firebasejs/7.14.1/firebase-storage.js";
+
 currentChannel = localStorage.getItem('channel')
 var largestIndex = 0
 var absoluteLargestIndex = 0
@@ -17,6 +19,8 @@ var canExit = false
 var justLoaded = true
 var onlyUseOnce = true
 var acceptableChannels = ['general', 'gaming', 'school', 'sports', 'e']
+
+//import {getStorage} from "https://www.gstatic.com/firebasejs/7.14.1/firebase-storage.js"
 
 window.onload = function() {
   // Your web app's Firebase configuration
@@ -119,7 +123,7 @@ window.onload = function() {
 
       var modal_header_div = document.createElement('div')
       modal_header_div.setAttribute('class', 'modal-header')
-      modal_header_div.setAttribute('id', 'not-title')
+      modal_header_div.setAttribute('id', 'modalTitle')
       modal_div.append(modal_header_div)
 
       var title_head_div = document.createElement('div')
@@ -135,6 +139,7 @@ window.onload = function() {
 
       var modal_body_div = document.createElement('div')
       modal_body_div.setAttribute('class', 'modal-header')
+      modal_body_div.setAttribute('id', 'not-title')
       modal_div.append(modal_body_div)
 
       var settings_text = document.createElement('p')
@@ -165,6 +170,57 @@ window.onload = function() {
       }
       gamesButton.innerHTML = "Look at Games [BETA]"
       modal_body_div.append(gamesButton)
+
+      var change_avatar_div = document.createElement('div')
+      change_avatar_div.setAttribute('id', 'change_avatar_div')
+      modal_body_div.append(change_avatar_div)
+
+      var avatar_image = document.createElement('img')
+      avatar_image.setAttribute('id', 'avatar_image')
+      change_avatar_div.append(avatar_image)
+      firebase.storage().ref().child(localStorage.getItem('name')).getDownloadURL().then((url) => {
+        var img = document.getElementById('avatar_image');
+        img.setAttribute('src', url);
+      }).catch((error) => {
+        avatar_image.setAttribute('src', 'images/no-user.png')
+      })
+
+      var fileInput = document.createElement('input')
+      fileInput.setAttribute('type', 'file')
+      fileInput.setAttribute('id', 'image')
+      const reader = new FileReader();
+			const img = document.getElementById("avatar_image");
+			let file;
+
+			reader.onload = e => {
+ 				img.src = e.target.result;
+			}
+
+			fileInput.addEventListener('change', e => {
+  				const f = e.target.files[0];
+  				file = f;
+  				reader.readAsDataURL(f);
+			})
+      change_avatar_div.append(fileInput)
+
+      var avatar_submit = document.createElement('button')
+      avatar_submit.setAttribute('id', 'avatar_submit')
+      avatar_submit.innerHTML = "Change Avatar"
+      avatar_submit.addEventListener('click', () => {
+        var file = document.getElementById('image').files[0]
+        if (file.type.split('/')[0] == "image"){
+          firebase.storage().ref().child(localStorage.getItem('name')).put(file).then((snapshot) => {
+            firebase.storage().ref().child(localStorage.getItem('name')).getDownloadURL().then((url) => {
+              var img = document.getElementById('avatar_image');
+              img.setAttribute('src', url);
+              swal("Avatar Set", "Your avatar has successfully been changed!", 'success')
+            })
+          });
+        } else {
+          console.log("Please select a valid image.")
+        }
+      })
+      change_avatar_div.append(avatar_submit)
 
       var overlay_div = document.createElement('div')
       overlay_div.setAttribute('id', 'overlay')
@@ -655,6 +711,22 @@ window.onload = function() {
               var message_inner_container = document.createElement('div')
               message_inner_container.setAttribute('class', 'message_inner_container')
 
+              
+              var user_avatar = document.createElement('img')
+              user_avatar.setAttribute('class', 'user_avatar')
+              message_inner_container.append(user_avatar)
+              firebase.storage().ref().child(data.name).getDownloadURL().then((url) => {
+                user_avatar.setAttribute('src', url);
+              }).catch((error) => {
+                user_avatar.setAttribute('src', 'images/no-user.png')
+              })
+
+              var message_text_container = document.createElement('div')
+              message_text_container.setAttribute('class', 'message_text_container')
+
+              var message_head_container = document.createElement('div')
+              message_head_container.setAttribute('class', 'message_head_container')
+
               var message_user_container = document.createElement('div')
               message_user_container.setAttribute('class', 'message_user_container')
 
@@ -679,7 +751,9 @@ window.onload = function() {
               message_user_container.append(message_user)
               message_content_container.append(message_content)
               message_time_container.append(message_time)
-              message_inner_container.append(message_user_container, message_time_container, message_content_container)
+              message_head_container.append(message_user_container, message_time_container)
+              message_text_container.append(message_head_container, message_content_container)
+              message_inner_container.append(message_text_container)
               message_container.append(message_inner_container)
 
               chat_content_container.append(message_container)
@@ -696,6 +770,22 @@ window.onload = function() {
 
             var message_inner_container = document.createElement('div')
             message_inner_container.setAttribute('class', 'message_inner_container')
+
+            
+            var user_avatar = document.createElement('img')
+            user_avatar.setAttribute('class', 'user_avatar')
+            message_inner_container.append(user_avatar)
+            firebase.storage().ref().child(data.name).getDownloadURL().then((url) => {
+              user_avatar.setAttribute('src', url);
+            }).catch((error) => {
+              user_avatar.setAttribute('src', 'images/no-user.png')
+            })
+
+            var message_text_container = document.createElement('div')
+            message_text_container.setAttribute('class', 'message_text_container')
+
+            var message_head_container = document.createElement('div')
+            message_head_container.setAttribute('class', 'message_head_container')
 
             var message_user_container = document.createElement('div')
             message_user_container.setAttribute('class', 'message_user_container')
@@ -721,7 +811,9 @@ window.onload = function() {
             message_user_container.append(message_user)
             message_content_container.append(message_content)
             message_time_container.append(message_time)
-            message_inner_container.append(message_user_container, message_time_container, message_content_container)
+            message_head_container.append(message_user_container, message_time_container)
+            message_text_container.append(message_head_container, message_content_container)
+            message_inner_container.append(message_text_container)
             message_container.append(message_inner_container)
 
             chat_content_container.append(message_container)
