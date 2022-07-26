@@ -131,8 +131,8 @@ body{
 
 .user_avatar{
   border-radius: 100%;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   border: 1px solid;
   float: left;
   order: 1;
@@ -373,7 +373,6 @@ body{
 }
 .message_user{
   font-weight: bold;
-  font-size: 15px;
 }
 .message_content_container{
   width: 100%;
@@ -384,8 +383,6 @@ body{
 }
 .message_content{
   font-weight: normal;
-  font-size: 17px;
-  margin-top: 2px;
   font-family: 'Nunito Sans', sans-serif;
   color: #5e5e5e;
   margin-left: 10px;
