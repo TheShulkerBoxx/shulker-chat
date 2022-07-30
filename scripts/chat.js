@@ -221,6 +221,8 @@ window.onload = function() {
             }).catch((error) => {
               swal("Avatar Not Set", "There was an error: " + error, "error")
             })
+          } else {
+            swal("Avatar Not Set", "Please select a valid image.", "error")
           }
         } catch(e){
           swal("Avatar Not Set", "Please select an image.", "error")
