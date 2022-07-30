@@ -207,17 +207,23 @@ window.onload = function() {
       avatar_submit.setAttribute('id', 'avatar_submit')
       avatar_submit.innerHTML = "Change Avatar"
       avatar_submit.addEventListener('click', () => {
-        var file = document.getElementById('image').files[0]
-        if (file.type.split('/')[0] == "image"){
-          firebase.storage().ref().child(localStorage.getItem('name')).put(file).then((snapshot) => {
-            firebase.storage().ref().child(localStorage.getItem('name')).getDownloadURL().then((url) => {
-              var img = document.getElementById('avatar_image');
-              img.setAttribute('src', url);
-              swal("Avatar Set", "Your avatar has successfully been changed!", 'success')
+        try {
+          var file = document.getElementById('image').files[0]
+          if (file.type.split('/')[0] == "image"){
+            firebase.storage().ref().child(localStorage.getItem('name')).put(file).then((snapshot) => {
+              firebase.storage().ref().child(localStorage.getItem('name')).getDownloadURL().then((url) => {
+                var img = document.getElementById('avatar_image');
+                img.setAttribute('src', url);
+                swal("Avatar Set", "Your avatar has successfully been changed!", 'success')
+              }).catch((error) => {
+                swal("Avatar Not Set", "There was an error: " + error, "error")
+              })
+            }).catch((error) => {
+              swal("Avatar Not Set", "There was an error: " + error, "error")
             })
-          });
-        } else {
-          console.log("Please select a valid image.")
+          }
+        } catch(e){
+          swal("Avatar Not Set", "Please select an image.", "error")
         }
       })
       change_avatar_div.append(avatar_submit)
