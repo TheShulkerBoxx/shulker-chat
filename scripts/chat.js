@@ -598,11 +598,6 @@ window.onload = function() {
           time: time,
           channel: currentChannel,
         })
-        .then(function(){
-          // After we send the chat refresh to get the new messages
-          
-          //parent.refresh_chat()
-        })
       })
     }
     // Get name. Gets the username from localStorage
@@ -872,6 +867,10 @@ window.onload = function() {
 
             var user_inner_container = document.createElement('div')
             user_inner_container.setAttribute('class', 'user_inner_container')
+
+            user_inner_container.addEventListener('mouseover', (event) => {
+              user_inner_container.setAttribute('title', 'Viewing Channel: #' + data.viewingChannel)
+            })
 
             var user_user = document.createElement('p')
             user_user.setAttribute('class', 'online_user')
