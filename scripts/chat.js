@@ -700,21 +700,26 @@ window.onload = function() {
         // Now we're done. Simply display the ordered messages
         ordered.forEach(function(data) {
           
-          var name = data.name
-          var message = data.message
-          var time = data.time
-          
-          if (!justLoaded){
+          function send_message(){
+
+            try{
+              if (ordered[data.index - 2].name != name){
+                var subMessage = true
+              }
+            } catch(e){
+              var subMessage = true
+            }
             
-            if (data.index >= absoluteLargestIndex){
-              
-              var message_container = document.createElement('div')
-              message_container.setAttribute('class', 'message_container')
+            var message_container = document.createElement('div')
+            message_container.setAttribute('class', 'message_container')
+            if (subMessage){
+              message_container.setAttribute('style', 'margin-top: 10px;')
+            }
 
-              var message_inner_container = document.createElement('div')
-              message_inner_container.setAttribute('class', 'message_inner_container')
+            var message_inner_container = document.createElement('div')
+            message_inner_container.setAttribute('class', 'message_inner_container')
 
-              
+            if (subMessage){
               var user_avatar = document.createElement('img')
               user_avatar.setAttribute('class', 'user_avatar')
               message_inner_container.append(user_avatar)
@@ -723,13 +728,15 @@ window.onload = function() {
               }).catch((error) => {
                 user_avatar.setAttribute('src', 'images/no-user.png')
               })
+            }
 
-              var message_text_container = document.createElement('div')
-              message_text_container.setAttribute('class', 'message_text_container')
+            var message_text_container = document.createElement('div')
+            message_text_container.setAttribute('class', 'message_text_container')
 
-              var message_head_container = document.createElement('div')
-              message_head_container.setAttribute('class', 'message_head_container')
+            var message_head_container = document.createElement('div')
+            message_head_container.setAttribute('class', 'message_head_container')
 
+            if (subMessage){
               var message_user_container = document.createElement('div')
               message_user_container.setAttribute('class', 'message_user_container')
 
@@ -743,23 +750,42 @@ window.onload = function() {
               var message_time = document.createElement('p')
               message_time.setAttribute('class', 'message_time')
               message_time.textContent = `${time}`
+            }
 
-              var message_content_container = document.createElement('div')
-              message_content_container.setAttribute('class', 'message_content_container')
+            var message_content_container = document.createElement('div')
+            message_content_container.setAttribute('class', 'message_content_container')
+            if (!subMessage){
+              message_content_container.setAttribute('style', 'margin-top: 0px;')
+            }
 
-              var message_content = document.createElement('p')
-              message_content.setAttribute('class', 'message_content')
-              message_content.textContent = `${message}`
+            var message_content = document.createElement('p')
+            message_content.setAttribute('class', 'message_content')
+            message_content.textContent = `${message}`
+            if (!subMessage){
+              message_content.setAttribute('style', 'margin-left: 50px;')
+            }
 
+            if (subMessage){
               message_user_container.append(message_user)
-              message_content_container.append(message_content)
               message_time_container.append(message_time)
               message_head_container.append(message_user_container, message_time_container)
-              message_text_container.append(message_head_container, message_content_container)
-              message_inner_container.append(message_text_container)
-              message_container.append(message_inner_container)
+            }
+            message_content_container.append(message_content)
+            message_text_container.append(message_head_container, message_content_container)
+            message_inner_container.append(message_text_container)
+            message_container.append(message_inner_container)
 
-              chat_content_container.append(message_container)
+            chat_content_container.append(message_container)
+          }
+
+          var name = data.name
+          var message = data.message
+          var time = data.time
+          
+          if (!justLoaded){
+            
+            if (data.index >= absoluteLargestIndex){
+              send_message()
             }
           } else {
             
@@ -768,58 +794,7 @@ window.onload = function() {
               onlyUseOnce = false
             }
 
-            var message_container = document.createElement('div')
-            message_container.setAttribute('class', 'message_container')
-
-            var message_inner_container = document.createElement('div')
-            message_inner_container.setAttribute('class', 'message_inner_container')
-
-            
-            var user_avatar = document.createElement('img')
-            user_avatar.setAttribute('class', 'user_avatar')
-            message_inner_container.append(user_avatar)
-            firebase.storage().ref().child(data.name).getDownloadURL().then((url) => {
-              user_avatar.setAttribute('src', url);
-            }).catch((error) => {
-              user_avatar.setAttribute('src', 'images/no-user.png')
-            })
-
-            var message_text_container = document.createElement('div')
-            message_text_container.setAttribute('class', 'message_text_container')
-
-            var message_head_container = document.createElement('div')
-            message_head_container.setAttribute('class', 'message_head_container')
-
-            var message_user_container = document.createElement('div')
-            message_user_container.setAttribute('class', 'message_user_container')
-
-            var message_user = document.createElement('p')
-            message_user.setAttribute('class', 'message_user')
-            message_user.textContent = `${name}`
-
-            var message_time_container = document.createElement('div')
-            message_time_container.setAttribute('class', 'message_time_container')
-
-            var message_time = document.createElement('p')
-            message_time.setAttribute('class', 'message_time')
-            message_time.textContent = `${time}`
-
-            var message_content_container = document.createElement('div')
-            message_content_container.setAttribute('class', 'message_content_container')
-
-            var message_content = document.createElement('p')
-            message_content.setAttribute('class', 'message_content')
-            message_content.textContent = `${message}`
-
-            message_user_container.append(message_user)
-            message_content_container.append(message_content)
-            message_time_container.append(message_time)
-            message_head_container.append(message_user_container, message_time_container)
-            message_text_container.append(message_head_container, message_content_container)
-            message_inner_container.append(message_text_container)
-            message_container.append(message_inner_container)
-
-            chat_content_container.append(message_container)
+            send_message()
           }
 
           if (data.message == "/function-reload"){

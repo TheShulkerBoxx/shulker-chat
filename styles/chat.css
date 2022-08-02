@@ -356,7 +356,6 @@ body{
 .message_container{
   width: 100%;
   display: inline-block;
-  margin-bottom: 20px;
   white-space: nowrap !important;
 }
 .message_inner_container{
