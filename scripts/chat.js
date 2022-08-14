@@ -712,6 +712,7 @@ window.onload = function() {
             
             var message_container = document.createElement('div')
             message_container.setAttribute('class', 'message_container')
+            message_container.setAttribute('title', 'Sent ' + time)
             if (subMessage){
               message_container.setAttribute('style', 'margin-top: 10px;')
             }

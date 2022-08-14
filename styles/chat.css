@@ -207,12 +207,14 @@ body{
   font-weight: normal;
   border-bottom: solid;
   padding-bottom: 5px;
+  cursor: default;
 }
 
 .user_inner_container{
   width: 100%;
   display: inline-block;
   margin-bottom: 5px;
+  cursor: initial;
 }
 
 #join_container{
@@ -581,6 +583,7 @@ body{
   border-bottom: solid;
   padding-bottom: 5px;
   border-color: black;
+  cursor: default;
 }
 
 @keyframes spin {
