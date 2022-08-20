@@ -25,14 +25,15 @@ var acceptableChannels = ['general', 'gaming', 'school', 'sports', 'e', 'self-pr
 window.onload = function() {
   // Your web app's Firebase configuration
   var firebaseConfig = {
-    apiKey: "AIzaSyDMzTcI5cHc7xCw4ChcE8mBK1t7z95nphc",
-    authDomain: "shulker-chat-d9d59.firebaseapp.com",
-    databaseURL: "https://shulker-chat-d9d59-default-rtdb.firebaseio.com",
-    projectId: "shulker-chat-d9d59",
-    storageBucket: "shulker-chat-d9d59.appspot.com",
-    messagingSenderId: "305660941795",
-    appId: "1:305660941795:web:e3c92759c2cbe58629fcd6"
-  };
+    apiKey: "AIzaSyBcEKKZgzECRBdhyLrkxYyJvllfFDqVCvM",
+    authDomain: "shulker-chat-72532.firebaseapp.com",
+    databaseURL: "https://shulker-chat-72532-default-rtdb.firebaseio.com",
+    projectId: "shulker-chat-72532",
+    storageBucket: "shulker-chat-72532.appspot.com",
+    messagingSenderId: "178686806819",
+    appId: "1:178686806819:web:37c52adf4c19db80f31a96"
+};
+  // 
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   // This is very IMPORTANT!! We're going to use "db" a lot.
