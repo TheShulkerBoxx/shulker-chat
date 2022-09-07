@@ -18,7 +18,7 @@ var absoluteLargestIndex = 0
 var canExit = false
 var justLoaded = true
 var onlyUseOnce = true
-var acceptableChannels = ['general', 'gaming', 'school', 'sports', 'e', 'self-promo', 'sell-stuff', 'band', 'orchestra']
+var acceptableChannels = ['general', 'gaming', 'school', 'sports', 'spam', 'self-promo', 'sell-stuff', 'band', 'orchestra']
 
 //import {getStorage} from "https://www.gstatic.com/firebasejs/7.14.1/firebase-storage.js"
 
