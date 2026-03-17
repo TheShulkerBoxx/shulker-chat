@@ -65,7 +65,7 @@ window.onload = function() {
     }
   })
 
-  // We're going to use oBjEcT OrIeNtEd PrOgRaMmInG. Lol
+  // using OOP for the chat system
   class MEME_CHAT{
     // Home() is used to create the home page
     home(){
@@ -294,7 +294,7 @@ window.onload = function() {
 
     // create_join_form() creates the join form
     create_join_form(){
-      // YOU MUST HAVE (PARENT = THIS). OR NOT. I'M NOT YOUR BOSS!😂
+      // parent ref required here
       var parent = this;
 
       var join_container = document.createElement('div')
